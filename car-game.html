@@ -7,7 +7,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#000;overflow:hidden;font-family:'Courier New',monospace;display:flex;align-items:center;justify-content:center;height:100vh}
-#gc{position:relative;width:100vw;height:100vh;overflow:hidden}
+#gc{position:relative;width:100vw;height:100vh;overflow:hidden;touch-action:none;overscroll-behavior:contain;-webkit-user-select:none;user-select:none}
 #c3{display:block;width:100%!important;height:100%!important}
 #sl{position:absolute;inset:0;pointer-events:none;opacity:1}
 .ov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,2,16,.92);padding:18px}
@@ -541,8 +541,41 @@ function onHit(){
 const K={};
 window.addEventListener('keydown',e=>{K[e.key]=true;if([' ','ArrowLeft','ArrowRight'].includes(e.key))e.preventDefault();});
 window.addEventListener('keyup',e=>{K[e.key]=false;});
-gc.addEventListener('mousemove',e=>{const r=gc.getBoundingClientRect();tX=((e.clientX-r.left)/r.width*2-1)*(RW*.44);});
-gc.addEventListener('touchmove',e=>{e.preventDefault();const r=gc.getBoundingClientRect();tX=((e.touches[0].clientX-r.left)/r.width*2-1)*(RW*.44);},{passive:false});
+function mapClientXToTarget(clientX){
+  const r=gc.getBoundingClientRect();
+  tX=((clientX-r.left)/r.width*2-1)*(RW*.44);
+}
+
+function startIfNeeded(){
+  if(!active) window.startGame();
+}
+
+gc.addEventListener('mousemove',e=>{mapClientXToTarget(e.clientX);});
+gc.addEventListener('touchstart',e=>{
+  if(!e.touches||!e.touches.length) return;
+  e.preventDefault();
+  startIfNeeded();
+  mapClientXToTarget(e.touches[0].clientX);
+},{passive:false});
+gc.addEventListener('touchmove',e=>{
+  if(!e.touches||!e.touches.length) return;
+  e.preventDefault();
+  mapClientXToTarget(e.touches[0].clientX);
+},{passive:false});
+gc.addEventListener('pointerdown',e=>{startIfNeeded();mapClientXToTarget(e.clientX);});
+gc.addEventListener('pointermove',e=>{
+  if(e.pointerType==='mouse'&&e.buttons===0) return;
+  mapClientXToTarget(e.clientX);
+});
+
+const startBtn=document.querySelector('#start-s .btn');
+if(startBtn){
+  startBtn.addEventListener('touchend',e=>{e.preventDefault();window.startGame();},{passive:false});
+}
+const restartBtn=document.querySelector('#over-s .btn');
+if(restartBtn){
+  restartBtn.addEventListener('touchend',e=>{e.preventDefault();window.startGame();},{passive:false});
+}
 
 function resize(){
   const w=gc.clientWidth, h=gc.clientHeight;

@@ -322,6 +322,27 @@
     background: rgba(88,255,158,0.2);
     border-color: rgba(88,255,158,0.5);
   }
+  .btn-terminal-mobile {
+    display: none;
+    background: rgba(88,255,158,0.12);
+    color: var(--green);
+    border: 1px solid rgba(88,255,158,0.34);
+    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  .btn-terminal-mobile:hover {
+    background: rgba(88,255,158,0.2);
+    border-color: rgba(88,255,158,0.5);
+  }
   .btn-cv {
     background: var(--bg3); color: var(--text-mid);
     border: 1px solid var(--border); border-radius: 8px;
@@ -670,6 +691,8 @@
     height: 100%;
     display: block;
     border: 0;
+    pointer-events: auto;
+    touch-action: none;
   }
 
   .career-robot-section {
@@ -1627,7 +1650,7 @@
       justify-self: end;
       display: flex;
       align-items: center;
-      gap: 0;
+      gap: 8px;
     }
     .brand-title { display: none; }
     .nav-links {
@@ -1657,18 +1680,50 @@
       background: rgba(255,255,255,0.01);
     }
     .nav-link-home { display: none; }
-    .btn-cv, .btn-hire, .btn-terminal { display: none; }
-    .nav-menu {
+    .btn-cv, .btn-terminal-mobile { display: none; }
+    .btn-terminal {
       display: inline-flex;
-      width: 40px;
-      height: 40px;
-      border: 1px solid var(--border);
-      border-radius: 9px;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border-radius: 12px;
+      justify-content: center;
+      font-size: 20px;
+      line-height: 1;
+      flex: 0 0 auto;
+    }
+    .btn-hire {
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: var(--bg3);
+      padding: 11px 20px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      flex: 0 0 auto;
     }
-    .nav-menu span { margin: 2px 0; }
+    .nav-menu {
+      display: inline-flex;
+      width: 30px;
+      height: 30px;
+      border: none;
+      border-radius: 0;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+      background: transparent;
+      padding: 0;
+    }
+    .nav-menu span {
+      width: 20px;
+      height: 2px;
+      margin: 0;
+      border-radius: 2px;
+      background: #7f8da6;
+      display: block;
+      flex: 0 0 auto;
+    }
     #hero { padding: 82px 16px 22px; min-height: auto; }
     .hero-label {
       width: 100%;
@@ -1727,12 +1782,9 @@
       align-self: stretch;
     }
     .career-robot-wrap #carGameSection .car-game-shell {
-      height: 680px;
-      height: 92vh;
-      height: 92dvh;
-      height: 92svh;
-      min-height: 640px;
-      max-height: none;
+      height: clamp(320px, 58vh, 430px);
+      min-height: 320px;
+      max-height: 430px;
       border-radius: 12px;
     }
     .career-robot-wrap #carGameSection #carGameFrame {
@@ -1870,12 +1922,9 @@
 
   @media (max-width: 420px) {
     .career-robot-wrap #carGameSection .car-game-shell {
-      height: 700px;
-      height: 94vh;
-      height: 94dvh;
-      height: 94svh;
-      min-height: 660px;
-      max-height: none;
+      height: clamp(300px, 54vh, 390px);
+      min-height: 300px;
+      max-height: 390px;
       border-radius: 10px;
     }
   }
@@ -1948,6 +1997,96 @@
     #projectsList { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
 
+  /* Force phone-style navbar on touch devices and narrow screens. */
+  @media (max-width: 900px), (hover: none) and (pointer: coarse) {
+    nav {
+      padding: 10px 12px;
+      grid-template-columns: auto auto;
+      row-gap: 0;
+      column-gap: 10px;
+    }
+    .nav-brand { grid-column: 1 / 2; }
+    .brand-title { display: none; }
+    .nav-right {
+      grid-column: 2 / 3;
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-links {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 12px;
+      right: 12px;
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      max-height: min(72vh, 380px);
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(20,20,32,0.97);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+      z-index: 150;
+    }
+    .nav-links.open { display: flex; }
+    .nav-link {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.01);
+    }
+    .nav-link-home { display: none; }
+    .btn-cv, .btn-terminal-mobile { display: none; }
+    .btn-terminal {
+      display: inline-flex;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border-radius: 12px;
+      justify-content: center;
+      font-size: 20px;
+      line-height: 1;
+      flex: 0 0 auto;
+    }
+    .btn-hire {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 20px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      flex: 0 0 auto;
+    }
+    .nav-menu {
+      display: inline-flex;
+      width: 30px;
+      height: 30px;
+      border: none;
+      border-radius: 0;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+      background: transparent;
+      padding: 0;
+    }
+    .nav-menu span {
+      width: 20px;
+      height: 2px;
+      margin: 0;
+      border-radius: 2px;
+      background: #7f8da6;
+      display: block;
+      flex: 0 0 auto;
+    }
+  }
+
   .txt-animate {
     opacity: 0;
     transform: translateY(4px);
@@ -2017,6 +2156,7 @@
   </div>
   <div class="nav-right">
     <button class="btn-terminal" type="button" onclick="openAIChat()" title="Open AI Chat">&gt;_</button>
+    <button class="btn-terminal-mobile" type="button" onclick="openAIChat()" title="Open AI Chat">AI</button>
     <a class="btn-cv" href="Sanjeev%20Vijayaratnam.pdf" download="Sanjeev-Vijayaratnam-CV.pdf">CV</a>
     <button class="btn-hire" onclick="window.location.href='contact.html'">Hire Me</button>
     <button class="nav-menu" id="navMenuBtn" type="button" aria-label="Open navigation menu" aria-controls="navLinks" aria-expanded="false" onclick="toggleMenu()">
@@ -2587,7 +2727,7 @@
       </div>
     </div>
     <div class="chat-window" id="chatWindow">
-      <div class="chat-msg"><strong>AI:</strong> Hi! Ask about my contact number, email, skills, projects, experience, education, or social links.</div>
+      <div class="chat-msg"><strong>AI:</strong> Hi! Ask any CV question: education, internships, experience, projects, skills, awards, tools, volunteering, or contact details.</div>
     </div>
     <div class="chat-input-wrap">
       <input id="chatInput" class="chat-input" type="text" placeholder="Example: What is your contact number?" />
@@ -2772,10 +2912,10 @@
   const STORAGE_KEY = 'portfolio.admin.state.v3';
 
   const defaultState = {
-    name: 'Thuverakan.T',
+    name: 'Sanjeev Vijayaratnam',
     title: 'Software Engineer',
     desc: 'I build scalable web & mobile applications with clean code and modern tooling. MERN stack, Next.js, Kotlin, and DevOps.',
-    email: 'thuverakan@example.com',
+    email: 'sanjeesanjee888@gmail.com',
     phone: '+94 0765670576',
     github: '#',
     linkedin: '#',
@@ -2843,7 +2983,7 @@
       { title: 'UI/UX Design', desc: 'Clean, accessible interfaces with Tailwind, Figma, and modern design.' }
     ],
     testimonials: [
-      { initials: 'KS', name: 'Dr. K. Sarveswaran', role: 'Senior Lecturer, University of Jaffna', text: 'Thuverakan consistently demonstrates exceptional technical skills and a strong commitment to producing quality work. His projects reflect both creativity and deep understanding of software engineering principles.', avatarClass: 'av-blue' },
+      { initials: 'KS', name: 'Dr. K. Sarveswaran', role: 'Senior Lecturer, University of Jaffna', text: 'Sanjeev consistently demonstrates exceptional technical skills and a strong commitment to producing quality work. His projects reflect both creativity and deep understanding of software engineering principles.', avatarClass: 'av-blue' },
       { initials: 'AN', name: 'A. Nilaxan', role: 'Project Lead, SenzMate IoT', text: 'One of the most dedicated developers I have worked with. His ability to quickly understand requirements and deliver clean, production-ready code is impressive.', avatarClass: 'av-teal' }
     ]
   };
@@ -3505,8 +3645,98 @@
     return Array.from(tags).slice(0, 10).join(', ') || 'Next.js, Node.js, Kotlin, Firebase';
   }
 
+  const cvKnowledgeBase = [
+    {
+      title: 'summary',
+      keywords: ['summary', 'profile', 'objective', 'introduction', 'who are you', 'about cv'],
+      answer: 'I am a Computer Science undergraduate with interests in AI, machine learning, robotics, software development, and UI/UX design. I am adaptable, self-driven, and focused on delivering high-quality results.'
+    },
+    {
+      title: 'internship',
+      keywords: ['intern', 'internship', 'habb', 'software engineer intern', 'current role'],
+      answer: 'Current role: Software Engineer Intern at HABB Pvt Ltd (from February 2025 to present), working on practical software delivery and team-based development.'
+    },
+    {
+      title: 'other experience',
+      keywords: ['digital marketing', 'juice bar', 'freelance', 'open source contributor', 'work history', 'past experience'],
+      answer: 'Other experience includes Digital Marketing Assistant at Juice Bar (2024-2025), Freelance Web Developer (2023-present), and Open Source Contributor (2023-present).'
+    },
+    {
+      title: 'education',
+      keywords: ['education', 'degree', 'university', 'bedfordshire', 'advanced level', 'o/l', 'school', 'sliit'],
+      answer: 'Education: BSc (Hons) in Computer Science at the University of Bedfordshire (2024-present), with earlier studies at J/Kokuvil Hindu College and J/Jaffna Hindu Primary School.'
+    },
+    {
+      title: 'projects',
+      keywords: ['project', 'projects', 'patient management', 'fasttrack', 'rent wheels', 'my sliit', 'mobile app'],
+      answer: 'CV projects include Patient Management System, FastTrack Logistics Automation System, Rent Wheels Vehicle Rental Website, and MY SLIIT Student Management Mobile Application.'
+    },
+    {
+      title: 'skills',
+      keywords: ['skills', 'programming language', 'languages', 'tech stack', 'technology', 'technical skills'],
+      answer: 'Programming skills listed in the CV include C, C++, C#, Java, Python, PHP, HTML, CSS, and JavaScript.'
+    },
+    {
+      title: 'tools',
+      keywords: ['tools', 'software', 'platform', 'github', 'photoshop', 'canva', 'office'],
+      answer: 'Tools listed in the CV include Visual Studio, GitHub, Photoshop, Canva, Inkscape, and MS Office (Excel, Word, PowerPoint).'
+    },
+    {
+      title: 'certificates',
+      keywords: ['certificate', 'certificates', 'diploma', 'idm'],
+      answer: 'Certificates in the CV include IT Diploma Certificate and English Diploma Certificate from IDM Nation Campus.'
+    },
+    {
+      title: 'awards',
+      keywords: ['award', 'awards', 'achievement', 'achievements', 'algothon', 'q4us', 'codestorm', 'netcom', 'top 10'],
+      answer: 'Achievements include SLIIT Algothon Code Fest 2024 (Merit Award), Q4US Code Art Competition 2025 (1st Place), and SLIIT NetCom Challenge (Top 10), plus multiple competition participations.'
+    },
+    {
+      title: 'volunteering',
+      keywords: ['volunteer', 'volunteering', 'activity', 'activities', 'media club', 'sirakukal'],
+      answer: 'Volunteering and activities include volunteering in Sirakukal (from May 2024) and participation in the Media Club at SLIIT NU.'
+    },
+    {
+      title: 'strength areas',
+      keywords: ['strength', 'strengths', 'strong at', 'data analysis', 'designing', 'office automation'],
+      answer: 'Strength areas listed in the CV are programming, data analysis, designing, and office automation.'
+    }
+  ];
+
+  function normalizeQuestion(question) {
+    return (question || '')
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function getCvKnowledgeAnswer(question) {
+    const q = normalizeQuestion(question);
+    if (!q) return '';
+
+    let best = null;
+    let bestScore = 0;
+
+    cvKnowledgeBase.forEach((item) => {
+      let score = 0;
+      item.keywords.forEach((keyword) => {
+        const normalizedKeyword = normalizeQuestion(keyword);
+        if (!normalizedKeyword) return;
+        if (q.includes(normalizedKeyword)) score += normalizedKeyword.split(' ').length;
+      });
+
+      if (score > bestScore) {
+        bestScore = score;
+        best = item;
+      }
+    });
+
+    return best && bestScore > 0 ? best.answer : '';
+  }
+
   function answerPortfolioQuestion(question) {
-    const q = question.toLowerCase();
+    const q = normalizeQuestion(question);
 
     if (q.includes('contact') || q.includes('phone') || q.includes('number') || q.includes('call')) {
       return `You can contact me on ${state.phone}.`;
@@ -3549,7 +3779,10 @@
       return `Current availability: ${state.terminal.status}.`;
     }
 
-    return `I can help with contact info, projects, skills, education, experience, and social links. Try asking: "What is your contact number?"`;
+    const cvAnswer = getCvKnowledgeAnswer(q);
+    if (cvAnswer) return cvAnswer;
+
+    return 'I can answer CV-based questions about summary, education, internships, experience, projects, skills, tools, certificates, awards, volunteering, and contact details. Try asking: What internships do you have?';
   }
 
   function askPortfolioAI() {
@@ -3583,7 +3816,7 @@
     const chatWindow = document.getElementById('chatWindow');
     if (!chatWindow) return;
 
-    chatWindow.innerHTML = '<div class="chat-msg"><strong>AI:</strong> Hi! Ask about my contact number, email, skills, projects, experience, education, or social links.</div>';
+    chatWindow.innerHTML = '<div class="chat-msg"><strong>AI:</strong> Hi! Ask any CV question: education, internships, experience, projects, skills, awards, tools, volunteering, or contact details.</div>';
   }
 
   function aiWindowAction(action) {
@@ -4007,56 +4240,7 @@
   playHeroDescTypingAnimation(state.desc || document.getElementById('heroDesc')?.textContent);
   setupTechTicker();
 
-  function enforceMobileGameFullView() {
-    const shell = document.getElementById('carGameShell');
-    const section = document.getElementById('carGameSection');
-    const frame = document.getElementById('carGameFrame');
-    if (!shell || !section || !frame) return;
-
-    const isMobile = window.matchMedia('(max-width: 600px)').matches;
-    if (!isMobile) {
-      shell.style.removeProperty('height');
-      shell.style.removeProperty('min-height');
-      shell.style.removeProperty('max-height');
-      frame.style.removeProperty('height');
-      frame.style.removeProperty('min-height');
-      section.style.removeProperty('width');
-      section.style.removeProperty('align-self');
-      return;
-    }
-
-    const viewportH = window.visualViewport?.height || window.innerHeight || 0;
-    const floor = window.innerWidth <= 420 ? 660 : 620;
-    const targetHeight = Math.max(floor, Math.floor(viewportH * 0.92));
-
-    section.style.width = '100%';
-    section.style.alignSelf = 'stretch';
-    shell.style.width = '100%';
-    shell.style.height = `${targetHeight}px`;
-    shell.style.minHeight = `${targetHeight}px`;
-    shell.style.maxHeight = 'none';
-    frame.style.height = '100%';
-    frame.style.minHeight = '100%';
-  }
-
-  let mobileGameLayoutRaf = 0;
-  function queueMobileGameLayout() {
-    if (mobileGameLayoutRaf) return;
-    mobileGameLayoutRaf = requestAnimationFrame(() => {
-      mobileGameLayoutRaf = 0;
-      enforceMobileGameFullView();
-    });
-  }
-
-  window.addEventListener('load', queueMobileGameLayout);
-  window.addEventListener('resize', queueMobileGameLayout);
-  window.addEventListener('orientationchange', queueMobileGameLayout);
-  window.addEventListener('pageshow', queueMobileGameLayout);
-  if (window.visualViewport) {
-    window.visualViewport.addEventListener('resize', queueMobileGameLayout);
-  }
-  enforceMobileGameFullView();
-  queueMobileGameLayout();
+  // Mobile game sizing is controlled by CSS only.
 
   (function initThemeParallax() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
