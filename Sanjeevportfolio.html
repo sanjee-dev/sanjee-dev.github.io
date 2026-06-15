@@ -941,6 +941,193 @@
     .nav-menu { display: inline-flex; width: 30px; height: 30px; border: none; border-radius: 0; align-items: center; justify-content: center; flex-direction: column; gap: 4px; background: transparent; padding: 0; }
     .nav-menu span { width: 20px; height: 2px; margin: 0; border-radius: 2px; background: #7f8da6; display: block; flex: 0 0 auto; }
   }
+  
+</style>
+<style>
+  /* ─── MOBILE NAV — DOWNLOAD CV BUTTON ─────────────────────── */
+  .nav-cv-download { display: none; }
+
+  @keyframes cvShine {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+  }
+
+  @keyframes cvFloat {
+    0%, 100% {
+      transform: translateY(0px) scale(1);
+      box-shadow:
+        0 4px 20px rgba(20,200,248,.38),
+        0 0 0 1px rgba(20,200,248,.30),
+        inset 0 1px 0 rgba(255,255,255,.18),
+        inset 0 -2px 0 rgba(0,0,0,.18);
+    }
+
+    50% {
+      transform: translateY(-3px) scale(1.012);
+      box-shadow:
+        0 10px 32px rgba(20,200,248,.54),
+        0 0 0 1px rgba(20,200,248,.46),
+        inset 0 1px 0 rgba(255,255,255,.22),
+        inset 0 -2px 0 rgba(0,0,0,.15);
+    }
+  }
+
+  @keyframes cvIconBounce {
+    0%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-3px); }
+    70% { transform: translateY(1px); }
+  }
+
+  @keyframes cvSparkle {
+    0% {
+      opacity: 0;
+      transform: translateY(0) scale(0);
+    }
+    30% { opacity: 1; }
+    100% {
+      opacity: 0;
+      transform: translateY(-18px) scale(1.4);
+    }
+  }
+
+  /* Reveal only when hamburger dropdown is open */
+  .nav-links.open .nav-cv-download {
+    display: flex;
+  }
+
+  .nav-cv-download {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    margin-top: 4px;
+    padding: 13px 16px;
+    border-radius: 10px;
+    border: none;
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 12px !important;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    color: #000 !important;
+
+    /* BLUE SHIMMER GRADIENT */
+    background: linear-gradient(
+      120deg,
+      #0aa9d8 0%,
+      #14c8f8 28%,
+      #7ee8ff 48%,
+      #14c8f8 68%,
+      #0aa9d8 100%
+    );
+
+    background-size: 200% auto;
+
+    animation:
+      cvFloat 3s ease-in-out infinite,
+      cvShine 3s linear infinite;
+
+    box-shadow:
+      0 4px 20px rgba(20,200,248,.38),
+      0 0 0 1px rgba(20,200,248,.30),
+      inset 0 1px 0 rgba(255,255,255,.18),
+      inset 0 -2px 0 rgba(0,0,0,.18);
+
+    transform-style: preserve-3d;
+    perspective: 400px;
+  }
+
+  /* Top gloss sheen */
+  .nav-cv-download::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 48%;
+    background: linear-gradient(
+      to bottom,
+      rgba(255,255,255,.28),
+      transparent
+    );
+    border-radius: 10px 10px 0 0;
+    pointer-events: none;
+  }
+
+  /* Floating sparkle dots */
+  .nav-cv-download::after {
+    content: '✦  ✦  ✦';
+    position: absolute;
+    bottom: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 6px;
+    color: rgba(126,232,255,.80);
+    letter-spacing: 8px;
+    animation: cvSparkle 2.4s ease-out infinite;
+    pointer-events: none;
+  }
+
+  .nav-cv-download:hover {
+    background: linear-gradient(
+      120deg,
+      #08b7ea 0%,
+      #35d4ff 30%,
+      #9ef0ff 50%,
+      #35d4ff 70%,
+      #08b7ea 100%
+    );
+
+    background-size: 200% auto;
+    color: #000 !important;
+
+    animation: cvShine 1.1s linear infinite;
+
+    transform: translateY(-2px) scale(1.02);
+
+    box-shadow:
+      0 12px 36px rgba(20,200,248,.60),
+      0 0 0 1px rgba(20,200,248,.50),
+      inset 0 1px 0 rgba(255,255,255,.30),
+      inset 0 -2px 0 rgba(0,0,0,.15);
+  }
+
+  .nav-cv-download:active {
+    transform: translateY(1px) scale(.99);
+    box-shadow:
+      0 2px 10px rgba(20,200,248,.30);
+  }
+
+  /* Animated download icon wrapper */
+  .cv-dl-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background: rgba(0,0,0,.18);
+    flex-shrink: 0;
+    animation: cvIconBounce 2s ease-in-out infinite;
+  }
+
+  /* PDF badge pill */
+  .cv-dl-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(0,0,0,.16);
+    border-radius: 4px;
+    padding: 2px 7px;
+    font-size: 10px !important;
+    font-weight: 700;
+    letter-spacing: .5px;
+    color: rgba(0,0,0,.72) !important;
+    margin-left: 2px;
+  }
 </style>
 </head>
 <body>
@@ -975,6 +1162,21 @@
     <a class="nav-link" href="services.html">_services</a>
     <a class="nav-link" href="resume.html">_resume</a>
     <a class="nav-link" href="contact.html">_contact</a>
+    <a class="nav-cv-download"
+   href="Sanjeev Vijayaratnam.pdf"
+   download="Sanjeev-Vijayaratnam-CV.pdf"
+   title="Download CV as PDF">
+  <span class="cv-dl-icon">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+         stroke="#000" stroke-width="2.6"
+         stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+      <line x1="3" y1="19" x2="21" y2="19"/>
+    </svg>
+  </span>
+  ⬇ Download CV
+  <span class="cv-dl-badge">PDF</span>
+</a>
   </div>
   <div class="nav-right">
     <button class="btn-terminal" type="button" onclick="openAIChat()" title="Open AI Chat">&gt;_</button>
